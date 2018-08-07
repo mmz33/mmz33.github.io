@@ -1,15 +1,20 @@
 ---
 layout: page
-title: "About Me"
 ---
 
 <div id="aboutme" class="row">
 <div class="col-md-12">
-    <h1 class="section-header" style="padding-bottom: 0.8em;">Mohammad Zeineldeen</h1>
-
     <div class="row">
-        <div class="col-md-2"><b>Email</b></div>
-        <div class="col-md-8"><a href="mailto:mohammadzed5@gmail.com" target="top">mohammadzed5@gmail.com</a></div>
+        <div class="col-md-3"><h3>Education</h3></div>
+        <div class="col-md-9">
+            <h4>RWTH Aachen University</h4>
+            <div>M.Sc., Computer Science, 2017-2019 (expected)</div>
+
+            <div class="row" style="padding-bottom: 1em"></div>
+
+            <h4>American University of Beirut</h4>
+            <div>B.Sc., Computer Science, 2014-2017</div>
+        </div>
     </div>
 </div>
 </div>
