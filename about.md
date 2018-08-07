@@ -8,7 +8,7 @@ layout: page
         <div class="col-md-3"><h3>Education</h3></div>
         <div class="col-md-9">
             <h4>RWTH Aachen University</h4>
-            <div>M.Sc., Computer Science, 2017-2019 (expected)</div>
+            <div>M.Sc., Software Systems Engineering, 2017-2019 (expected)</div>
 
             <div class="row" style="padding-bottom: 1em"></div>
 
