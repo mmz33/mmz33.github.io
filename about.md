@@ -43,4 +43,4 @@ I am currently working as a research student assistant at the Human Language Tec
 
   I developed an Android carpooling application on a team for a Software Engineering course.
 
-- USAID Full Scholarship for undergraduate students at American University of Beirut, 2013
+- USAID Full Scholarship at American University of Beirut, 2013
