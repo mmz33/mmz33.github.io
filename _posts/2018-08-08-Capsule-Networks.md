@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Will Capsule Networks replace CNNs?
+title: Will Capsule Networks Replace CNNs?
 ---
 
 {% include mathjax.html %}
