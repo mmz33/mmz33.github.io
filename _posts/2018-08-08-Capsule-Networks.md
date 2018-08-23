@@ -5,9 +5,13 @@ title: Will Capsule Networks Replace CNNs?
 
 {% include mathjax.html %}
 
-The main paper which I am going to follow is [Dynamic Routing between Capules](https://arxiv.org/abs/1710.09829) written by Geoffery Hinton and his colleagues.
+## Introduction
 
-## Convolutional Neural Network
+Geoffery Hinton and his colleagues published a paper entitled by [Dynamic Routing between Capules](https://arxiv.org/abs/1710.09829) which introduces what is called "Capsule Networks" (CapsNets).
+In the deep learning community, this is an open for a big wave of research since it is a new neural architecture
+and might have a great impact. But wait? Why we need capsule networks if we have CNNs? In this blog, I am going first to discuss the main problems of CNNs, then I will move into the capsule theory by discussing how capsules work and the main algorithm, the Dynamic Routing algorithm, behind this theory. Then, I will go over the CapsNet architecture by explaining its layers and finally we look up at some experiments and results.
+
+## Convolutional Neural Network (CNN)
 -----
 
 As we all know, Convolutional Neural Networks (CNNs) are the state-of-the-art models for different tasks in
@@ -33,20 +37,20 @@ Now you might ask what is the motivation behind Capsule Networks? What is wrong 
 
 {% include image.html url="/images/2018-08-08-Capsule-Networks/unnormal_face.png" description="Figure 1: For a CNN, both images will be recognized as faces. Source: [6]" width="60%" %}
 
-If we look at the two faces above, the right one does not look normal and so we won't recognize it as a face right? The reason behind that is that we know that the positions of the parts is not correct (mouth and eye) and so it shouldn't be recognized as a face. However, for a CNN, both images will be recognized as faces! Because of the pooling layer, the spatial relationship between parts of the image is lost and so the only thing that CNN cares about is that if the parts are found in the image.
+If we look at the two faces above, the right one does not look normal and so we won't recognize it as a face right? The reason behind that is that we know that the positions of the parts is not correct (in particular the mouth and the eye) and so it shouldn't be recognized as a face. However, for a CNN, both images will be recognized as faces! Because of the pooling layer, the spatial relationship between parts of the image is lost and so the only thing that CNN cares about is that if the parts are found in the image.
 
 - Rotational Invariance
 
-Another problem in CNNs is that they doesn't capture the geometric interpretation of the objects they are detecting. If we have for example a rotated face in an image, then CNN will output that a face exists and not a rotated face specifically. Again the reason behind that is because of the pooling layer.
+Another problem in CNNs is that they don't capture the geometric interpretation of the objects they are detecting. If we have for example a rotated object in an image, then CNN will output that this object exists and not as a rotated object specifically. Again the reason behind that is because of the pooling layer.
 
 {% include image.html url="/images/2018-08-08-Capsule-Networks/rotate_face_fool.png" description="Figure 2: CNN fooled with rotation. Source: [5]" width="100%" %}
 
-As an example, the above image is expected to be recognized as a face but when it is rotated and fed to a CNN, the output is a "coal black color" which is totally opposite to what we expect.
+As an example, the image in Figure 2 is expected to be recognized as a face but when it is rotated and fed to a CNN, the output is a "coal black color" which is totally opposite to what we expect.
 
 ## Capsule Theory
 ----
 ### Definition of a Capsule
-After talking about the problems of CNN, let's discuss now what are capsules and how they work. Before getting started, keep in mind the main problems of CNN so that you can see how capsules may solve them. According to Hinton, Capsule networks do, in a certain sense, what is called inverse graphics. So, given an image as input, we want to find a way to get the instantiation parameters (pose, orientation, etc) of the objects in the image which might help us in the recognition task and give us more information about the object we are detecting. Capsules are group of neurons/scalars represented by an **activity vector**. The activity vector encodes the instantation parameters of the object being detected by the capsule. The length of this activity vector represents the probability that the object being detected is present in the image. In other words, each state or dimension of the vector encodes a specific parameter such as rotation, orientation, thickness, lighting, etc.
+After talking about the problems of CNN, let's discuss now what are capsules and how they work. Before getting started, keep in mind the main problems of CNN so that you can see how capsules may solve them. According to Hinton, Capsule networks do, in a certain sense, what is called inverse graphics. So, given an image as input, we want to find a way to get the instantiation parameters (pose, orientation, etc) of the objects in the image which might help us in the recognition task and give us more information about the objects we are detecting. Capsules are group of neurons/scalars represented by an **activity vector**. The activity vector encodes the instantation parameters of the object being detected by the capsule. The length of this activity vector represents the probability that the object being detected is present in the image. In other words, each state or dimension of the vector encodes a specific parameter such as rotation, orientation, thickness, lighting, etc.
 
 {% include image.html url="/images/2018-08-08-Capsule-Networks/capsule_rep.png" description="Figure 3: Capsule representation. Inspired from [4]" width="70%" %}
 
@@ -55,13 +59,13 @@ In Figure 3 above, the blue arrows represent capsules trying to detect a face. T
 Note that here for simplicity, we have 2D vectors but usually to capture more params, high dimensional vectors are used.
 
 ### How does a Capsule work?
-Previously, the output of a neuron is a scalar but now more information need to be stored and so the output is instead a vector. The following are the computational steps of a capsule.
+Previously, the output of a neuron was a scalar but now more information need to be stored and so the output is instead a vector. The following are the computational steps of a capsule.
 
 #### 1. Transforming matrix multiplication
 
 {% include image.html url="/images/2018-08-08-Capsule-Networks/capsule_comp.png" description="Figure 4: Simple capsule computation." width="70%" %}
 
-In Figure 4, there are 3 input activity vectors or capsules that come from the layer below which detected some low-level features. They encoded their probability of existence and their state (pose, orientation, etc). These vectors are then multiplied by a transformation matrix W, which represents the spatial relationship between low-level and high-level features. For instance, assume that the 3 capsules had detected 3 low-level features of a face which are eye, nose, and mouth represented by $$ u_1, u_2, $$ and $$ u_3 $$ respectively. Then, for example, matrix $$ W_{1j} $$ may encode the relationship between the eye and the face such as the width of the face is equal to 3 times the width of the eye. The same intuition follows for the other features. The result of this transformation is a prediction vector for the position of the face in relation to the positions of the low-level features. If the prediction vectors are a good match, then the features detected by these capsules are in the right spatial relationship and so they can vote to predict the pose of a face. That is one of the advantages of capsules by allowing the neural network to recognize the whole image by recognizing its parts. The prediction vector from each capsule $$ i $$ to each capsule $$ j $$ is denoted by $$ \hat{u}_{j \vert i} $$ where $$ \hat{u}_{j \vert i}= W_{ij} u_i $$.
+In Figure 4, there are 3 input activity vectors or capsules (green circles) that come from the layer below which detected some low-level features. They encoded their probability of existence and their state (pose, orientation, etc). These vectors are then multiplied by a transformation weight matrix W, which represents the spatial relationship between low-level and high-level features. For instance, assume that the 3 capsules had detected 3 low-level features of a high-level object such as a face (capsule represented by the red circle) which are eye, nose, and mouth represented by $$ u_1, u_2, $$ and $$ u_3 $$ respectively. Then, for example, matrix $$ W_{1j} $$ may encode the relationship between the eye and the face such as the width of the face is equal to 3 times the width of the eye. The same intuition follows for the other features. The result of this transformation is a prediction vector for the position of the face in relation to the positions of the low-level features. If the prediction vectors are a good match, then the features detected by these capsules are in the right spatial relationship and so they can vote to predict the pose of a face. That is one of the advantages of capsules by allowing the neural network to recognize the whole image by recognizing its parts. The prediction vector from each capsule $$ i $$ to each capsule $$ j $$ is denoted by $$ \hat{u}_{j \vert i} $$ where $$ \hat{u}_{j \vert i}= W_{ij} u_i $$.
 
 The $$ c_{ij} $$ coefficients are called "coupling coefficients" and what you need to know about them just for now is
 that they are used to weight the prediction vectors of the low-level capsules with respect to how these
@@ -102,7 +106,7 @@ Before digging into the main algorithm behind capsule theory, read again the ste
 
 Recall that each low-level capsule needs to decide to which capsule in the higher level it needs to send its output to. The coupling coefficients $$ c_{ij} $$ change with respect to the decision taken and the input of capsule $$j$$ will be the output of capsule $$i$$ multiplied by these coefficients. Note that they are determined by the dynamic routing algorithm and not learned.
 
->One thing to keep in mind to understand the essence of this algorithm is that it is based on the keyword **"agreement."** Low-level capsules "agree" together to activate a high-level capsules.
+>One thing to keep in mind to understand the essence of this algorithm is that it is based on the keyword **"agreement."** Low-level capsules "agree" together to activate a high-level capsule.
 
 The following are the details of each line of Algorithm 1:
 
@@ -156,18 +160,18 @@ Thus, Total Loss = Training margin loss + Reconstruction loss
 
 {% include image.html url="/images/2018-08-08-Capsule-Networks/capsnet_classification.png" description="Table 1: CapsNet classification results on the MNIST dataset. Source: [1]" width="100%" %}
 
-Moving to the interesting part which addresses the question how good are these capsules. Well, CapsNet achieved state-of-the-art performance on the MNIST dataset. As seen in Table 1, it scored a test error rate of 0.25$$ \% $$ using 3 routing iterations and with a reconstruction subnetwork. The baseline is a standard CNN with three convolutional layers of 256, 256, 128 channels and each has $$ 5 \times 5 $$ kernels and stride of 1. What is more interesting is that the number of parameters of this baseline is **35.4M**, whereas, the CapsNet has only **8.2M** parameters and 6.8M without the reconstruction subnetwork.
+Moving to the interesting part which addresses the question how good are these capsules. Well, CapsNet achieved state-of-the-art performance on the MNIST dataset. As seen in Table 1, it scored a test error rate of 0.25$$ \% $$ using 3 routing iterations and with a reconstruction subnetwork. The baseline is a standard CNN with three convolutional layers of 256, 256, 128 channels and each has $$ 5 \times 5 $$ kernels and stride of 1. What is more interesting is that the number of parameters of this baseline is **35.4M**, whereas, the CapsNet has only **8.2M** parameters and **6.8M** without the reconstruction subnetwork.
 
 ### Capsules Representation
 
 {% include image.html url="/images/2018-08-08-Capsule-Networks/mnist_performance.png" description="Figure 8: Capsules representation. Source: [1]" width="100%" %}
 
-To see how capsules are encoding the instantiation parameters of the objects they are detecting, a perturbation can be applied to the activity vector and then fed to the decoder to reconstruct the perturbed image. Figure 8 shows how each dimension of the activity vector encodes a feature about the object and changing it is affecting the reconstruction. I think this really shows how good capsules are good in encoding these features.
+To see how capsules are encoding the instantiation parameters of the objects they are detecting, a perturbation can be applied to the activity vector and then fed to the decoder to reconstruct the perturbed image. Figure 8 shows how each dimension of the activity vector encodes a feature about the object and changing it is affecting the reconstruction. This really shows how good capsules are good in encoding these features.
 
 ### Conclusion
-So the questions that we need to ask now can we really rely on capsules? How are they affected
+So the questions that might be asked now can we really rely on these capsules? How are they affected
 by the type of task they are used for? Maybe using capsules instead of CNN can lead to
-better performance in different tasks such as feature extraction in ASR, images generations with GANs, etc. However, CapsNet is computationally expensive because of the dynamic routing algorithm and there are no experiments yet on the ImageNet dataset so... I think that there might be a probability that they will fail but who knows... let's see.
+better performance in different tasks such as feature extraction in ASR, images generations with GANs, etc. However, CapsNet is computationally expensive because of the dynamic routing algorithm and there are no experiments yet on the ImageNet dataset. There is always a probability of failure so let's try to do experiments and see.
 
 ### References
 
