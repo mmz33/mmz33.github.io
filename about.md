@@ -2,7 +2,7 @@
 layout: page
 ---
 
-I am currently working as a student research assistant at the Human Language Technology and Pattern Recognition Group at the RWTH Aachen University. My research interests are Automatic Speech Recognition, Natural Language Processing, and Machine Translation.
+I am currently working as a student research assistant at the Human Language Technology and Pattern Recognition Group at the RWTH Aachen University. My main research interests are Automatic Speech Recognition, Natural Language Processing, and Machine Translation. I am also interested in Computer Vision. I like to share what I learn and I am always open for discussion.
 
 ## Education
 
