@@ -6,14 +6,13 @@ title: Will Capsule Networks Replace CNNs?
 {% include mathjax.html %}
 
 ## Introduction
-
+---
 Geoffery Hinton and his colleagues published a paper entitled by [Dynamic Routing between Capules](https://arxiv.org/abs/1710.09829) which introduces what is called "Capsule Networks" (CapsNets).
 In the deep learning community, this is an open for a big wave of research since it is a new neural architecture
 and might have a great impact. But wait? Why we need capsule networks if we have CNNs? In this blog, I am going first to discuss the main problems of CNNs, then I will move into the capsule theory by discussing how capsules work and the main algorithm, the Dynamic Routing algorithm, behind this theory. Then, I will go over the CapsNet architecture by explaining its layers and finally we look up at some experiments and results.
 
 ## Convolutional Neural Network (CNN)
 -----
-
 As we all know, Convolutional Neural Networks (CNNs) are the state-of-the-art models for different tasks in
 Computer Vision such as object recognition, object segmentation, etc. The intuition behind them is that if we extract
 first low-level features, then later these features can be combined to build more complex ones. Let's describe briefly the main layers of a CNN:
@@ -30,7 +29,6 @@ and so If you feel you need to learn more about CNNs, I recommend you to check t
 
 ## CNNs Drawbacks
 -----
-
 Now you might ask what is the motivation behind Capsule Networks? What is wrong with CNNs?
 
 - Spatial relationship between parts
@@ -156,19 +154,20 @@ $$ (16 + 1) \times 512 + (512 + 1) \times  1024 + (1024 + 1) \times 784 = 1,337,
 
 Thus, Total Loss = Training margin loss + Reconstruction loss
 
-### Capsules on MNIST
-
+## Capsules on MNIST
+---
 {% include image.html url="/images/2018-08-08-Capsule-Networks/capsnet_classification.png" description="Table 1: CapsNet classification results on the MNIST dataset. Source: [1]" width="100%" %}
 
 Moving to the interesting part which addresses the question how good are these capsules. Well, CapsNet achieved state-of-the-art performance on the MNIST dataset. As seen in Table 1, it scored a test error rate of 0.25$$ \% $$ using 3 routing iterations and with a reconstruction subnetwork. The baseline is a standard CNN with three convolutional layers of 256, 256, 128 channels and each has $$ 5 \times 5 $$ kernels and stride of 1. What is more interesting is that the number of parameters of this baseline is **35.4M**, whereas, the CapsNet has only **8.2M** parameters and **6.8M** without the reconstruction subnetwork.
 
-### Capsules Representation
-
+## Capsules Representation
+---
 {% include image.html url="/images/2018-08-08-Capsule-Networks/mnist_performance.png" description="Figure 8: Capsules representation. Source: [1]" width="100%" %}
 
 To see how capsules are encoding the instantiation parameters of the objects they are detecting, a perturbation can be applied to the activity vector and then fed to the decoder to reconstruct the perturbed image. Figure 8 shows how each dimension of the activity vector encodes a feature about the object and changing it is affecting the reconstruction. This really shows how good capsules are good in encoding these features.
 
-### Conclusion
+## Conclusion
+---
 So the questions that might be asked now can we really rely on these capsules? How are they affected
 by the type of task they are used for? Maybe using capsules instead of CNN can lead to
 better performance in different tasks such as feature extraction in ASR, images generations with GANs, etc. However, CapsNet is computationally expensive because of the dynamic routing algorithm and there are no experiments yet on the ImageNet dataset. There is always a probability of failure so let's try to do experiments and see.
