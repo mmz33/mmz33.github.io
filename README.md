@@ -1,1 +1,1 @@
-Tech blog.
+My blog.
