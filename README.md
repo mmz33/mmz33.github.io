@@ -1,2 +1,2 @@
 # My blog
-This is my blog, uses [Jekyll](https://jekyllrb.com/).
+This is my blog. It uses [Jekyll](https://jekyllrb.com/).
