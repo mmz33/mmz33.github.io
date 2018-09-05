@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Will Capsule Networks Replace CNNs?
+excerpt: In this blog, I am going first to discuss the main problems of CNNs, then I will move into the capsule theory by discussing how capsules work and the main algorithm, the Dynamic Routing algorithm, behind this theory. Then, I will go over the CapsNet architecture by explaining its layers and finally we look up at some experiments and results.
 ---
 
 {% include mathjax.html %}

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Let's Pay Attention
+excerpt: I am going first to explain briefly how recurrent neural networks work since it is a main component in the seq2seq models. Then, I am going to talk about the encoder-decoder architecture and what are its problems. After that, I am going to introduce the Attention model which lead to a huge improvement in the performance of these models. In the end, we look at some experiments and results.
 ---
 
 {% include mathjax.html %}
@@ -29,7 +30,7 @@ In Figure 1, the most left image represents a general form of an RNN which can b
 
 - $$ o_t $$: Output at time step $$ t $$. For example, it can be a one-hot vector representing the index of the translated word of the input word.
 
-- $$ U, V, W $$: Weight matrices parameters. Note that these matrices are shared between all the time steps in the network.
+- $$ U, V, W $$: Weight matrices parameters. U is the input-to-hidden weight matrix, V is the hidden-to-hidden weight matrix, and W is the hidden-to-output weight matrix. Note that these matrices are shared between all the time steps in the network.
 
 The loop allows information to pass from one step to another. For the calculations:
 - $$ h_t = g[Ux_t + Vh_{t-1}] $$ where the current hidden state or information is calculated depending
@@ -38,7 +39,27 @@ on the current input and the previous information. $$g$$ is an activation functi
 - $$ o_t = Softmax(Wh_t) $$. Since we are dealing with a translation task, then the output would be a vector of
 probabilities across the vocabulary words.
 
-However, usually the hidden state $$ h_t $$ is not able to capture a lot of information for long sequences and so to decrease the impact of this problem, Long-Short-Term-Memory (LSTMs) are used. I am not going to go into the details of how LSTMs work since they are not so important for understanding the attention model. If you want to know how they work, I recommend to check [colah's blog](http://colah.github.io/posts/2015-08-Understanding-LSTMs/) about LSTMs.
+However, usually the hidden state $$ h_t $$ is not able to capture a lot of information for long sequences and so to decrease the impact of this problem, Long-Short-Term-Memory (LSTMs) are used. I will explain briefly how LSTMs work since they are not so important for understanding the attention model and so you can skip it. But, if you want to know more about them, I recommend to check [colah's blog](http://colah.github.io/posts/2015-08-Understanding-LSTMs/).
+
+LSTM uses gates to control the flow of information through what is called a cell state which is denoted by $$c_t$$ for each time step of the network. The LSTM hidden state receives input $$x_t$$ and the previous hidden state $$h_{t-1}$$:
+
+$$ h_t = W_{hh}h_{t-1} + W_{hx}x_t $$
+
+where $$W_{hh}$$ is the hidden-to-hidden weight matrix, and $$W_{hx}$$ is the input-to-hidden weight matrix. Then, LSTM uses the following three gates:
+
+Forget gate: $$ \hspace{0.3cm} f_t = \sigma(W_{fx}x_t + W_{fh}h_{t-1}) $$
+
+Input gate: $$ \hspace{0.5cm} i_t = \sigma(W_{ix}x_t + W_{ih}h_{t-1}) $$
+
+Output gate: $$ \hspace{0.2cm} o_t = \sigma(W_{ox}x_t + W_{oh}h_{t-1}) $$
+
+where $$\sigma$$ is a sigmoid function. The forget gate determines how much of the previous cell state $$c_{t-1}$$ we want to forget. The input gate controls how much of the input to each hidden unit is written to the cell state $$c_t$$. The output gate controls how much of the output of each hidden unit is preserved. In other words, this allows the LSTM hidden unit to store information which are currently important and store the rest in the cell state which can be used later. Therefore, we end up with the following equations:
+
+$$ c_t = f_t \odot c_{t-1} + i_t \odot tanh(h_t) $$
+
+Since $$f_t$$ uses sigmoid, we apply a Hadamard product with $$c_{t-1}$$ to forget unnecessary information and then we add the result to the hidden unit output.
+
+$$ h_t = tanh(c_t) \odot o_t $$
 
 ## Bidirectional RNN
 ---
