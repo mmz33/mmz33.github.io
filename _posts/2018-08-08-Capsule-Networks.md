@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Will Capsule Networks Replace CNNs?
-excerpt: In this blog, I am going first to discuss the main problems of CNNs, then I will move into the capsule theory by discussing how capsules work and the main algorithm, the Dynamic Routing algorithm, behind this theory. Then, I will go over the CapsNet architecture by explaining its layers and finally we look up at some experiments and results.
+excerpt: In this blog post, I am going first to discuss the main problems of CNNs, then I will move into the capsule theory by discussing how capsules work and the main algorithm, the Dynamic Routing algorithm, behind this theory. Then, I will go over the CapsNet architecture by explaining its layers and finally we look up at some experiments and results.
 ---
 
 {% include mathjax.html %}
@@ -10,7 +10,7 @@ excerpt: In this blog, I am going first to discuss the main problems of CNNs, th
 ---
 Geoffery Hinton and his colleagues published a paper entitled by [Dynamic Routing between Capules](https://arxiv.org/abs/1710.09829) which introduces what is called "Capsule Networks" (CapsNets).
 In the deep learning community, this is an open for a big wave of research since it is a new neural architecture
-and might have a great impact. But wait? Why we need capsule networks if we have CNNs? In this blog, I am going first to discuss the main problems of CNNs, then I will move into the capsule theory by discussing how capsules work and the main algorithm, the Dynamic Routing algorithm, behind this theory. Then, I will go over the CapsNet architecture by explaining its layers and finally we look up at some experiments and results.
+and might have a great impact. But wait? Why we need capsule networks if we have CNNs? In this blog post, I am going first to discuss the main problems of CNNs, then I will move into the capsule theory by discussing how capsules work and the main algorithm, the Dynamic Routing algorithm, behind this theory. Then, I will go over the CapsNet architecture by explaining its layers and finally we look up at some experiments and results.
 
 ## Convolutional Neural Network (CNN)
 -----
