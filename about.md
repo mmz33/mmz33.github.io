@@ -6,9 +6,9 @@ I am currently working as a student research assistant at the Human Language Tec
 
 ## Education
 
-- M.Sc in Software Systems Engineering, RWTH Aachen University. (Expected 2019)
+- M.Sc in Software Systems Engineering, RWTH Aachen University (2017 - Present)
 
-- B.Sc in Computer Science, Amercian University of Beirut.
+- B.Sc in Computer Science, Amercian University of Beirut (2014 - 2017)
 
 ## Skills
 
