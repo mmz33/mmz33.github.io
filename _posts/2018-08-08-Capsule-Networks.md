@@ -34,7 +34,7 @@ Now you might ask what is the motivation behind Capsule Networks? What is wrong 
 
 - Spatial relationship between parts
 
-{% include image.html url="/images/2018-08-08-Capsule-Networks/unnormal_face.png" description="Figure 1: For a CNN, both images will be recognized as faces. Source: [6]" width="60%" %}
+{% include image.html url="/images/Capsule-Networks/unnormal_face.png" description="Figure 1: For a CNN, both images will be recognized as faces. Source: [6]" width="60%" %}
 
 If we look at the two faces above, the right one does not look normal and so we won't recognize it as a face right? The reason behind that is that we know that the positions of the parts is not correct (in particular the mouth and the eye) and so it shouldn't be recognized as a face. However, for a CNN, both images will be recognized as faces! Because of the pooling layer, the spatial relationship between parts of the image is lost and so the only thing that CNN cares about is that if the parts are found in the image.
 
@@ -42,7 +42,7 @@ If we look at the two faces above, the right one does not look normal and so we 
 
 Another problem in CNNs is that they don't capture the geometric interpretation of the objects they are detecting. If we have for example a rotated object in an image, then CNN will output that this object exists and not as a rotated object specifically. Again the reason behind that is because of the pooling layer.
 
-{% include image.html url="/images/2018-08-08-Capsule-Networks/rotate_face_fool.png" description="Figure 2: CNN fooled with rotation. Source: [5]" width="100%" %}
+{% include image.html url="/images/Capsule-Networks/rotate_face_fool.png" description="Figure 2: CNN fooled with rotation. Source: [5]" width="100%" %}
 
 As an example, the image in Figure 2 is expected to be recognized as a face but when it is rotated and fed to a CNN, the output is a "coal black color" which is totally opposite to what we expect.
 
@@ -51,7 +51,7 @@ As an example, the image in Figure 2 is expected to be recognized as a face but 
 ### Definition of a Capsule
 After talking about the problems of CNN, let's discuss now what are capsules and how they work. Before getting started, keep in mind the main problems of CNN so that you can see how capsules may solve them. According to Hinton, Capsule networks do, in a certain sense, what is called inverse graphics. So, given an image as input, we want to find a way to get the instantiation parameters (pose, orientation, etc) of the objects in the image which might help us in the recognition task and give us more information about the objects we are detecting. Capsules are group of neurons/scalars represented by an **activity vector**. The activity vector encodes the instantation parameters of the object being detected by the capsule. The length of this activity vector represents the probability that the object being detected is present in the image. In other words, each state or dimension of the vector encodes a specific parameter such as rotation, orientation, thickness, lighting, etc.
 
-{% include image.html url="/images/2018-08-08-Capsule-Networks/capsule_rep.png" description="Figure 3: Capsule representation. Inspired from [4]" width="70%" %}
+{% include image.html url="/images/Capsule-Networks/capsule_rep.png" description="Figure 3: Capsule representation. Inspired from [4]" width="70%" %}
 
 In Figure 3 above, the blue arrows represent capsules trying to detect a face. The direction of the vector represents the orientation of the object it is detecting. As you can see, the most left vector is the longest one, which means that the capsule is sure with high probability that there exists a face in this area in addition to its orientation. The other vectors have low probability for the existence of a face. In addition, if the face rotate in the appearance manifold in some direction, then the length of the vector will still be the same because the capsule is still sure that the face exists but its direction will change.
 
@@ -62,7 +62,7 @@ Previously, the output of a neuron was a scalar but now more information need to
 
 #### 1. Transforming matrix multiplication
 
-{% include image.html url="/images/2018-08-08-Capsule-Networks/capsule_comp.png" description="Figure 4: Simple capsule computation." width="70%" %}
+{% include image.html url="/images/Capsule-Networks/capsule_comp.png" description="Figure 4: Simple capsule computation." width="70%" %}
 
 In Figure 4, there are 3 input activity vectors or capsules (green circles) that come from the layer below which detected some low-level features. They encoded their probability of existence and their state (pose, orientation, etc). These vectors are then multiplied by a transformation weight matrix W, which represents the spatial relationship between low-level and high-level features. For instance, assume that the 3 capsules had detected 3 low-level features of a high-level object such as a face (capsule represented by the red circle) which are eye, nose, and mouth represented by $$ u_1, u_2, $$ and $$ u_3 $$ respectively. Then, for example, matrix $$ W_{1j} $$ may encode the relationship between the eye and the face such as the width of the face is equal to 3 times the width of the eye. The same intuition follows for the other features. The result of this transformation is a prediction vector for the position of the face in relation to the positions of the low-level features. If the prediction vectors are a good match, then the features detected by these capsules are in the right spatial relationship and so they can vote to predict the pose of a face. That is one of the advantages of capsules by allowing the neural network to recognize the whole image by recognizing its parts. The prediction vector from each capsule $$ i $$ to each capsule $$ j $$ is denoted by $$ \hat{u}_{j \vert i} $$ where $$ \hat{u}_{j \vert i}= W_{ij} u_i $$.
 
@@ -76,7 +76,7 @@ low-level capsules are related to the high-level one. I am going to explain more
 
 As we saw in Figure 4, there was only one high-level capsule just for simplicity. However, we usually have more than one high-level capsule and so the question now is how a low-level capsule can decide to which high-level capsule it should send its output to? Here it comes the importance of these coupling coefficients $$ c_{ij} $$. These coefficients are determined by the "Dynamic routing" algorithm which will be explained later in details but for now, we are going to talk about their intuition.
 
-{% include image.html url="/images/2018-08-08-Capsule-Networks/agreement.png" description="Figure 5: Capsules agreement. Inspired from: [3]" width="70%" %}
+{% include image.html url="/images/Capsule-Networks/agreement.png" description="Figure 5: Capsules agreement. Inspired from: [3]" width="70%" %}
 
 In Figure 5, each low-level capsule has a weighted coefficient $$ c $$ connected to the capsule in the higher level. When each low-level capsule computes its output (prediction vector), it needs to decide to which capsule in the higher level it should propagate it to. This decision will affect the coupling coefficient $$ c $$ which is multiplied by its output before sending it to its parent (high level). Now, the high-level capsule already received some input vectors from other low-level capsules. Then, with reference to Hinton's speech, imagine there exists a vector space for each high-level capsule where the input vectors are represented in it as 2D data points. If there are data points that form a cluster, then the vectors represented by these data points are somehow related to each other (vector similarity). Therefore, when a low-level capsule computes its prediction vector after multiplying its activity vector with the transformation matrix, we check where its data point land in the vector space. So, if it lands near a cluster, this implies that it is related to the low-level features of this high-level capsule and based on that the corresponding parameter $$ c $$ is updated.
 
@@ -101,7 +101,7 @@ where $$ v_j $$ is the vector output of capsule j and $$ s_j $$ is its input.
 ### Dynamic Routing Algorithm
 Before digging into the main algorithm behind capsule theory, read again the steps described above if you feel you need to do that because they are the main parts of the algorithm and hopefully as you continue reading, they will become more clear.
 
-{% include image.html url="/images/2018-08-08-Capsule-Networks/dynamic_routing_algo.png" description="Algorithm 1: Dynamic Routing Algorithm. Source: [1]" width="100%" %}
+{% include image.html url="/images/Capsule-Networks/dynamic_routing_algo.png" description="Algorithm 1: Dynamic Routing Algorithm. Source: [1]" width="100%" %}
 
 Recall that each low-level capsule needs to decide to which capsule in the higher level it needs to send its output to. The coupling coefficients $$ c_{ij} $$ change with respect to the decision taken and the input of capsule $$j$$ will be the output of capsule $$i$$ multiplied by these coefficients. Note that they are determined by the dynamic routing algorithm and not learned.
 
@@ -123,7 +123,7 @@ CapsNet consists of two parts: An encoder and a decoder. For the encoder, the in
 
 #### Encoder
 
-{% include image.html url="/images/2018-08-08-Capsule-Networks/encoder.png" description="Figure 6: CapsNet Encoder Architecture. Source: [1]" width="100%" %}
+{% include image.html url="/images/Capsule-Networks/encoder.png" description="Figure 6: CapsNet Encoder Architecture. Source: [1]" width="100%" %}
 
 ReLU Conv1 is the first layer of the encoder. It is a standard conv layer that is used to detect simple features to be used later as input to the primary capsules. It has 256 kernels each is $$ 9 \times 9 $$ with stride 1 followed by a ReLU activation function. Then, the size of the output is $$ 20 \times 20 \times 256 $$ and the number of parameters is $$ (9 \times 9 + 1) \times 256 = 20,992$$.
 
@@ -148,7 +148,7 @@ Where $$ T_k = 1 $$ if and only if the digit of class k is present and $$ m^{+} 
 
 #### Decoder
 
-{% include image.html url="/images/2018-08-08-Capsule-Networks/decoder.png" description="Figure 7: CapsNet Decoder Architecture. Source: [1]" width="100%" %}
+{% include image.html url="/images/Capsule-Networks/decoder.png" description="Figure 7: CapsNet Decoder Architecture. Source: [1]" width="100%" %}
 
 In the decoder phase, all the digit capsules from the DigitCaps layer are masked out except the correct one. The selected 16D vector is used then as input for the decoder that tries to learn to reconstruct a $$ 28 \times 28 $$ image with the aim of minimizing the sum of squared differences between the reconstructed image and the original image. In this way, it helps the capsules to learn the instantiation parameters to construct the original image. This is the same as FC layers in CNN where the $$ 1 \times 16 $$ input is weighted and connected to 512 neurons of the next layer. Then, the 512 neurons are connected to 1024 neurons and finally, the 1024 neurons are connected to 784 neurons which can be reshaped to a $$ 28 \times 28 $$ image.The total number of parameters is:
 $$ (16 + 1) \times 512 + (512 + 1) \times  1024 + (1024 + 1) \times 784 = 1,337,616 $$.
@@ -157,13 +157,13 @@ Thus, Total Loss = Training margin loss + Reconstruction loss
 
 ## Capsules on MNIST
 ---
-{% include image.html url="/images/2018-08-08-Capsule-Networks/capsnet_classification.png" description="Table 1: CapsNet classification results on the MNIST dataset. Source: [1]" width="100%" %}
+{% include image.html url="/images/Capsule-Networks/capsnet_classification.png" description="Table 1: CapsNet classification results on the MNIST dataset. Source: [1]" width="100%" %}
 
 Moving to the interesting part which addresses the question how good are these capsules. Well, CapsNet achieved state-of-the-art performance on the MNIST dataset. As seen in Table 1, it scored a test error rate of 0.25$$ \% $$ using 3 routing iterations and with a reconstruction subnetwork. The baseline is a standard CNN with three convolutional layers of 256, 256, 128 channels and each has $$ 5 \times 5 $$ kernels and stride of 1. What is more interesting is that the number of parameters of this baseline is **35.4M**, whereas, the CapsNet has only **8.2M** parameters and **6.8M** without the reconstruction subnetwork.
 
 ## Capsules Representation
 ---
-{% include image.html url="/images/2018-08-08-Capsule-Networks/mnist_performance.png" description="Figure 8: Capsules representation. Source: [1]" width="100%" %}
+{% include image.html url="/images/Capsule-Networks/mnist_performance.png" description="Figure 8: Capsules representation. Source: [1]" width="100%" %}
 
 To see how capsules are encoding the instantiation parameters of the objects they are detecting, a perturbation can be applied to the activity vector and then fed to the decoder to reconstruct the perturbed image. Figure 8 shows how each dimension of the activity vector encodes a feature about the object and changing it is affecting the reconstruction. This really shows how good capsules are good in encoding these features.
 

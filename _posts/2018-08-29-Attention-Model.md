@@ -21,7 +21,7 @@ some of the parts of the source sentence that are mostly related to the word we 
 The idea here is that we want to save/use the past information for the incoming outputs. For example, if you are reading a text, you will not each time start thinking from scratch but understand what are you reading depending on what you read before.
 
 It is not clear how standard neural networks can do this and that's why we need recurrent neural networks. In addition to that, here we have a sequence of inputs and outputs with variable lengths. To address these issues, RNN has some form of loop which allows the persistence of the information. A simple architecture of an RNN looks as follows:
-{% include image.html url="/images/2018-08-29-Attention-Model/rnn_image.png" description="Figure 1: RNN Architecture. Source: [2]" width="100%" %}
+{% include image.html url="/images/Attention-Model/rnn_image.png" description="Figure 1: RNN Architecture. Source: [2]" width="100%" %}
 
 In Figure 1, the most left image represents a general form of an RNN which can be unfolded into multiple copies to get what is shown on the right side. In other words, at each time step $$ t $$, one input is fed to the network to produce an output. The labels of the network are:
 - $$ x_t $$: Input at time step $$t$$. For example, it can be a one-hot vector representing the index of an input word.
@@ -64,7 +64,7 @@ $$ h_t = tanh(c_t) \odot o_t $$
 ## Bidirectional RNN
 ---
 As discussed in the previous section, each hidden state can be considered as a memory that capture the context information in each time step $$t$$. This is known as a unidirectional RNN since the information flow is in one direction from left to right, and in particular, from the start to the end of the sequence. But what if we want the information at some time $$ t $$ to be from both the past and future context? Therefore, we use what is called a Bidirectional RNN (BRNN). It has the same architecture as a unidirectional RNN but with two layers of hidden states instead. The first layer will contain the forward pass information flow and the other layer will contain the backward pass information flow. To illustrate more, here how the architecture looks like now:
-{% include image.html url="/images/2018-08-29-Attention-Model/brnn_image.png" description="Figure 2: BRNN Architecture. Source: [3]" height="30%" width="50%" %}
+{% include image.html url="/images/Attention-Model/brnn_image.png" description="Figure 2: BRNN Architecture. Source: [3]" height="30%" width="50%" %}
 In Figure 2, the hidden state at time step $$ t $$ is then $$ h_t =
 \begin{bmatrix}
     \overrightarrow{h_t} \\
@@ -76,7 +76,7 @@ which is the concatenation of the forward and backward hidden states. In this wa
 ---
 Most of the neural machine translation models belong to a family of encoders and decoders.
 
-{% include image.html url="/images/2018-08-29-Attention-Model/enc_dec.png" description="Figure 3: Encoder-Decoder Architecture. Source: [4]" width="100%" %}
+{% include image.html url="/images/Attention-Model/enc_dec.png" description="Figure 3: Encoder-Decoder Architecture. Source: [4]" width="100%" %}
 
 Figure 3 shows the encoder-decoder architecture in general.
 
@@ -94,7 +94,7 @@ $$
 
 Since we are dealing with an RNN, then $$ p(y_{t'} \vert \{y_1, ..., y_{t'-1}\}, c) = A(y_{t-1}, s_t, c)$$ where $$A$$  can be a multilayer feed-forward network to calculate the output $$y_t$$ depending on the previous output $$ y_{t-1} $$, the decoder's hidden state at time step t $$s_t$$, and the context vector $$c$$. These calculations are represented graphically in Figure 4.
 
-{% include image.html url="/images/2018-08-29-Attention-Model/rnn_enc_dec.png" description="Figure 4: RNN Encoder-Decoder Architecture. Source: [5]" heigh="50%" width="50%" %}
+{% include image.html url="/images/Attention-Model/rnn_enc_dec.png" description="Figure 4: RNN Encoder-Decoder Architecture. Source: [5]" heigh="50%" width="50%" %}
 
 Note that the total number of time steps of the encoder and decoder are not the same and that is why they are distigushed since the source and target sentences can have different lengths.
 
@@ -107,7 +107,7 @@ Thus, we need a mechanism that allows us to **"attend"** only to the parts of th
 ### Learning to Align and Translate
 For this section, I am going to use $$i$$ for output step, and $$j$$ for input step.
 
-{% include image.html url="/images/2018-08-29-Attention-Model/att_model.png" description="Figure 5: Model with Attention. Source: [1]" width="50%" %}
+{% include image.html url="/images/Attention-Model/att_model.png" description="Figure 5: Model with Attention. Source: [1]" width="50%" %}
 
 #### Encoder Architecture
 In this model, we would like at each time step to capture information not only from the preceding words but also from the future ones. So for that we use a bidirectional RNN which is explained briefly before. In Figure 5, we have an input sequence $$ (x_1, ..., x_{T}) $$. Then, the forward RNN reads the input sequence from $$x_1$$ to $$x_T$$ and outputs a vector of forward hidden states for each time step: $$ (\overrightarrow{h_1}, ..., \overrightarrow{h_T}) $$. In addition, the backward RNN reads the input sequence from $$x_T$$ to $$x_1$$ resulting in a sequence of backward hidden states: $$(\overleftarrow{h_1}, ..., \overleftarrow{h_T}) $$. Then, at each time step we concatenate these calculated hidden states and so $$ h_j =
@@ -153,13 +153,13 @@ Note that in the original paper [1] the energy scores are dependent on the previ
 ---
 The experiments are performed on the task of English-to-French translation. The dataset used is WMT '14. The BLUE score [7] is usually used as the metric for the translation performance measure. The idea of BLUE is that the similar the machine translation to a professional human translation the better. So given a candidate or hypothesis translation and a set of reference translations (human translations) then to compute the score, we calculate what is called the modified n-gram precision by comparing the n-grams between the hypothesis and the references. The position is independent and it is called "modified" precision because a reference word will be marked as visited after a match so that it is not matched again. For example, if we have a hypothesis sentence: *the the the* and reference sentence: *the cat*, the modified precision is equal to 1/3 and not 3/3.
 
-{% include image.html url="/images/2018-08-29-Attention-Model/att_blue.png" description="Figure 6: The BLUE scores of the generated translations on the test dataset. Source: [1]" width="70%" %}
+{% include image.html url="/images/Attention-Model/att_blue.png" description="Figure 6: The BLUE scores of the generated translations on the test dataset. Source: [1]" width="70%" %}
 
 Figure 6 shows how attention can solve the problem of long sentences. RNNenc is an RNN Encoder-Decoder model and RNNsearch is the same but with attention. The number in the suffix represents the max length of the sentences in the training dataset. We can see that for long sentences, the BLUE score is stable when using attention, but it decreases rapidly without it.
 
 Just to note that for decoding, we use what is called "Beam Search" algorithm. I am not going to go into the details of this algorithm but the idea is that a greedy search approach for the next word won't result in the optimal output. Therefore, we define a beam (e.g stack) of size B and each time while decoding, we choose the best B hypotheses and add them to the beam. After that, we model the next conditional probability for each word given only these hypotheses and continue until we reach the end sentence symbol.
 
-{% include image.html url="/images/2018-08-29-Attention-Model/en-fr.png" description="Figure 7: Attention weights illustration. Source: [1]" width="50%" %}
+{% include image.html url="/images/Attention-Model/en-fr.png" description="Figure 7: Attention weights illustration. Source: [1]" width="50%" %}
 
 Figure 7 highlights the alignment model and more precisely how the attention weights are computed for each target word. We want to translate the english source sentence into a target french sentence. The alignment looks monotonic where most of the weights are high on the diagonal of the matrix. There are some non-monotonic alignments which refers to the reordering of Adjectives and nouns between French and English.
 
