@@ -160,33 +160,65 @@ Before formulating the DP problem, let's first generalise how this works graphic
 
 I would think about this DP problem as what I drew in Figure 5. So, we have a **Trellis** which is a graph where nodes are ordered vertically over time. Each point $$(i,j)$$ in this graph represents a node where $$i$$ represents the y-axis index and $$j$$ represents the x-axis index. Then, each node would store the solution for the subproblem which is the *"partial score up to this node"*. So each node would store the score over all the paths that lead to this node which make sense now why we need only one forward pass :)
 
-This is a generalised explanation about how to think about such DP problems to solve them. It can be used to solve different tasks also. In our case, we have the observation sequence of length T on the x-axis and the hidden states of the HMM of length N+2 (N states plus the start and end states) on the y-axis. I am going to use $$t$$ for the time step index instead of $$i$$ and $$q$$ for state index just for meaning convenience.
+This is a generalised explanation about how to think about such DP problems to solve them. It can be used to solve different tasks also. In our case, we have the observation sequence of length T on the x-axis and the hidden states of the HMM of length N+2 (N states plus the start and end states) on the y-axis. I am going to use $$t$$ for the time step index and $$q$$ for state index just for meaning convenience.
 
 Let's now go into the mathematical details of the DP formulation of this problem. Recall the formula that we want to compute:
 
 $$ p(O) = \sum_{Q} \prod_{i=1}^{T} p(q_i \vert q_{i-1}) \times p(o_i \vert q_i) $$
 
-Let $$DP[t][q]$$ be the sum of the probabilities of all paths that lead to the node at position $$(t,q)$$.
+Let $$forward[t][q]$$ be the sum of the probabilities of all paths that lead to the node at position $$(t,q)$$.
 
 Thus,
 
-$$ DP[t][q] = \sum_{q'} DP[t-1][q'] \cdot p(q \vert q') \cdot p(o_t \vert q) =  p(o_t \vert q) \cdot \sum_{q'} DP[t-1][q'] \cdot p(q \vert q')$$
+$$ forward[t][q] = \sum_{q'} forward[t-1][q'] \cdot p(q \vert q') \cdot p(o_t \vert q) $$
 
-In other words, $$DP[t][q]$$ stores the sum of all paths up to the nodes in the previous time step $$t-1$$ multiplied by the transition probability of each of these nodes to the current node (state) $$q$$ and the emission probability of generating the observation at time step $$t$$ given the current node $$q$$.
+In other words, $$forward[t][q]$$ stores the sum of all paths up to the nodes in the previous time step $$t-1$$ multiplied by the transition probability of each of these nodes to the current node (state) $$q$$ and the emission probability of generating the observation at time step $$t$$ given the current node $$q$$.
 
 Then, the pseudo code of the forward algorithm is:
 
 {% include image.html url="/images/Hidden-Markov-Model/forward_algo.png" description="" width="100%" %}
 
-Complexity: $$\mathcal{O}(N^2 T)$$
+Time Complexity: $$\mathcal{O}(N^2 T)$$
+
+Space Complexity: $$\mathcal{O}(NT)$$
 
 ## Decoding: The Viterbi Algorithm
+---
 
-<!-- ## Training HMMs
+To begin with, for such models, there is always a **decoding** task. Decoding means computing the best or most probable hidden sequence corresponding to a sequence of observations. In the ice cream example, given the observation sequence *3 1 1*, the decoder job is to find the best hidden sequence consisting of the states *{Sunny, Rainy}*.
 
-## POS Tagging
+Now, a simple approach would be to apply the forward algorithm for each possible hidden sequence (*Sunny Sunny Sunny, Sunny Rainy Sunny, etc*) and then choose the one having the best (max) likelihood probability. However, as we said before, this will be exponential and so computationally expensive.
 
-## Code  -->
+<!-- I would suggest to think a bit how would you solve this problem before continue reading.
+*-> Hint*: It is quite similar to the forward algorithm. -->
+
+To solve this problem efficiently, we need to somehow try to do only one pass over the observation sequence as we did before. In addition, you might have noticed that the main operation that we need here is "max" instead of "sum". Then, the algorithm should be quite similar to the forward algorithm right? Try to think a bit how would you do it.
+
+Therefore, we can use what's called the **Viterbi algorithm**. It also uses dynamic programming to compute the result efficiently. So, formally speaking we have:
+
+$$ viterbi[t][q] = \max_{q_0, ..., q_{t-1}} p(q_0, q_1, ..., q_{t-1}, o_1, ..., o_t, q_t = q \vert \mathcal{G}) $$
+
+In other words, $$viterbi[t][q]$$ is the probability of being in state $$q$$ of the HMM after seeing $$t$$ observations and passing through the best hidden sequence up to state $$q$$.
+
+Then, the calculation is:
+
+$$ viterbi[t][q] = \max_{q'} viterbi[t-1][q'] \cdot p(q \vert q') \cdot p(o_t \vert q) $$
+
+Thus, the pseudocode looks as follows:
+
+{% include image.html url="/images/Hidden-Markov-Model/viterbi_algo.png" description="" width="100%" %}
+
+Time Complexity: $$\mathcal{O}(N^2 T)$$
+
+Space Complexity: $$\mathcal{O}(2NT)$$
+
+Note that we have an extra table called $$backpointer$$ in this algorithm. The reason why we need this table is because we want to be able to trace back the best path and so we use this table to store the index of the best previous state for each state at each time $$t$$.
+
+## Training HMMs
+---
+Now we come to the last problem which is how to compute the parameters of the HMM.
+
+<!-- ## POS Tagging -->
 
 ## Reference:
 ---
