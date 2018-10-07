@@ -15,7 +15,7 @@ and language processing.
 
 Before discussing about HMMs, we first need to define what is a **Markov Model** and why we have this additional
 word *Hidden*. Then, I am going to explain the structure of HMM and how to compute the likelihood probability
-using **Forward algorithm**. Moreover, I am going to explain the decoding **Viterbi algorithm** which is used to compute
+using the **Forward algorithm**. Moreover, I am going to explain the decoding **Viterbi algorithm** which is used to compute
 the most likely sequence. After that, I am going to dig into the mathematical details behind training HMMs using
 the **Forward and Backward algorithm**.
 
@@ -24,7 +24,7 @@ the **Forward and Backward algorithm**.
 ## Markov Chains
 ---
 
-A Markov chain is a weighted automata where states represent labels and edges are weighted with transition probabilities. Thus, the sum of weights of all the outgoing edges should be 1.
+A Markov chain is a weighted automata where states represent labels and edges are weighted with transition probabilities. Thus, the sum of weights of all the outgoing edges of each state should be 1.
 {% include image.html url="/images/Hidden-Markov-Model/markov_chain.png" description="Figure 1: Markov chain" width="50%" %}
 
 Figure 1 shows a Markov chain for assigning a probability to a sequence of weather events. For example, $$ p(\text{Sunny} \vert \text{Sunny}) = 0.4$$ and $$ p(\text{Rainy} \vert \text{Sunny}) = 0.6 $$. Notice that the outgoing probabilities of each state are normalized.
@@ -40,7 +40,7 @@ Formally speaking, a Markov chain can be defined as a tuple $$ (Q, A, q_0, q_F) 
         \end{bmatrix}$$
 
 is a **transition probability matrix** where $$a_{ij}$$ represents
-the transition probability for state $$i$$ to state $$j$$ such that $$\sum_{j=1}^{n} a_{ij} = 1$$ for all $$i \in \{0, \dots, N\}$$. We have N+1 rows since we have N states and +1 for the special initial state $$q_0$$.
+the transition probability from state $$i$$ to state $$j$$ such that $$\sum_{j=1}^{n} a_{ij} = 1$$ for all $$i \in \{0, \dots, N\}$$. We have N+1 rows since we have N states and +1 for the special initial state $$q_0$$.
 - $$q_0$$ is a special label denoting the start or initial state (e.g $$\langle S \rangle$$ for sentence start symbol)
 - $$q_F$$ is a special label denoting the end state (e.g $$\langle E \rangle$$ for sentence end symbol)
 
@@ -48,7 +48,7 @@ Now, if you want to think how the probability of the sequence of the Markov chai
 
 $$ p(q_1, q_2, \dots, q_N) = \prod_i p(q_i \vert q_1, q_2, \dots, q_{i-1}) $$
 
-However, there is an important assumption known as **Markov process** which Markov chain follows. The idea is that the probability of the new state is only dependent on "part" of the history and not all of it. We say that the Markov chain is a **first-order** model if it only depends on the previous state and the conditional probability becomes:
+However, there is an important assumption known as the **Markov process** which the Markov chain follows. The idea is that the probability of the new state is only dependent on "part" of the history and not all of it. We say that the Markov chain is a **first-order** model if it only depends on the previous state and then the conditional probability becomes:
 
 $$ \big[p(q_i \vert q_1, q_2, \dots, q_{i-1}) = p(q_i \vert q_{i-1})\big] \implies p(q_1, q_2, \dots, q_N) = \prod_i p(q_i \vert q_{i-1}) $$
 
@@ -71,7 +71,7 @@ Before you continue reading, try to compute the probability of the following seq
 ---
 
 A Markov chain is usually used to compute the probability of a sequence of events that can be "observed" in
-the real world such as the weather example in Figure 1. However, in some cases, these observations are hidden (which represent the states) and that's when we need to use HMMs. For example, as we will discuss later, when we have a sequence of words and we want to assign for each word its POS tag, then we do this by inference since the tags are hidden. HMM can be used for modelling the probability of both observed and hidden sequences.
+the real world such as the weather example in Figure 1. However, in some cases, these observations are hidden (which represent the states) and that's when we need to use HMMs. For example, when we have a sequence of words and we want to assign for each word its POS tag, then we do this by inference since the tags are hidden. HMM can be used for modelling the probability of both observed and hidden sequences.
 
 First, let's define HMM formally as we did for the Markov chain. HMM is defined as a tuple $$(Q, A, O, B, q_0, q_F)$$ where:
 - $$Q, A, q_0, q_F$$ are defined same as the ones of the Markov chain above.
@@ -113,7 +113,7 @@ The main problems that we are going to tackle next are:
 ## Likelihood Computation: The Forward Algorithm
 ---
 
-Here we want to tackle the problem of computing the likelihood probability of an observations. As for the ice cream example in the previous section, let's say we have the following observation sequence (ice cream events) *3 1 1*. Now, given the HMM $$\mathcal{G}$$ = (A, B), we want to compute the likelihood probability which is $$ p(O \vert \mathcal{G}) $$.
+Here we want to tackle the problem of computing the likelihood probability of an observation sequence. As for the ice cream example in the previous section, let's say we have the following observation sequence (ice cream events) *3 1 1*. Now, given the HMM $$\mathcal{G}$$ = (A, B), we want to compute the likelihood probability which is $$ p(O \vert \mathcal{G}) $$.
 
 If we have a Markov chain, then the computation would be easy since the states represents the observations and so we can just follow the edges between the states and multiply the probabilities on them. However, when it comes to HMM, it is different. In HMM, the state sequence is hidden and so don't know which path in the graph we have to take.  
 
@@ -129,7 +129,7 @@ where the values of the probabilities are assumed (for this problem) that they a
 
 {% include image.html url="/images/Hidden-Markov-Model/likelihood_comp.png" description="Figure 3: Graphical representation of the likelihood computation of the ice cream events {3 1 1} given the hidden sequence {Sunny Rainy Sunny}" width="50%" %}
 
-But here in our case, we just assumed some hidden sequence since we don't know how this sequence looks like and there are other sequences that we need to consider. Thus, to compute the probability of the ice cream events *3 1 1*, we need to sum over all the possible hidden (weather) sequences. To do so, let's first compute the joint probability of being a in a particular hidden (weather) sequence $$Q$$ and generating a sequence $$O$$ of ice cream events. For this, we have the following equation:
+But here in our case, we just assumed some hidden sequence since we don't know how this sequence looks like and there are other sequences that we need to consider. Thus, to compute the probability of the ice cream events *3 1 1*, we need to sum over all the possible hidden (weather) sequences. To do so, let's first compute the joint probability of being in a particular hidden (weather) sequence $$Q$$ and generating a sequence $$O$$ of ice cream events. For this, we have the following equation:
 
 $$ p(O, Q) = p(Q) \times p(O \vert Q) = \prod_{i=1}^{T} \underbrace{p(q_i \vert q_{i-1})}_{\text{transition probability}} \times \prod_{i=1}^{T} \underbrace{p(o_i \vert q_i)}_{\text{emission probability}} $$
 
@@ -191,7 +191,7 @@ Space Complexity: $$\mathcal{O}(NT)$$
 
 To begin with, for such models, there is always a **decoding** task. Decoding means computing the best or most probable hidden sequence corresponding to a sequence of observations. In the ice cream example, given the observation sequence *3 1 1*, the decoder job is to find the best hidden sequence consisting of the states *{Sunny, Rainy}*.
 
-Now, a simple approach would be to apply the forward algorithm for each possible hidden sequence (*Sunny Sunny Sunny, Sunny Rainy Sunny, etc*) and then choose the one having the best (max) likelihood probability. However, as we said before, this will be exponential and so computationally expensive.
+Now, a simple approach would be to apply the forward algorithm for each possible hidden sequence (*Sunny Sunny Sunny, Sunny Rainy Sunny, etc*) and then choose the one having the best (max) likelihood probability. However, this will be exponential and so computationally expensive.
 
 <!-- I would suggest to think a bit how would you solve this problem before continue reading.
 *-> Hint*: It is quite similar to the forward algorithm. -->
@@ -226,16 +226,16 @@ Note that we have an extra table called $$backpointer$$ in this algorithm. The r
 ---
 Now we come to the last problem which is how to compute the parameters of the HMM. In particular, we want to compute the matrices *A* and *B* which represents the transition probabilities and emission probabilities respectively.
 
-The input to the learning algorithm is an unlabeled sequence of observations and a set of hidden states. Since we have an **unsupervised learning** case, we need to use the **Expected-Maximization algorithm (or EM algorithm)**. It is an iterative algorithm which works by computing an initial estimate for the probabilites we want to compute and then use these estimated to compute better probabilities and so on... Thus, training HMMs is done using **forward-backward, or
+The input to the learning algorithm is an unlabeled sequence of observations and a set of hidden states. Since we have an **unsupervised learning** case, we need to use the **Expected-Maximization algorithm (or EM algorithm)**. It is an iterative algorithm which works by computing an initial estimate for the probabilites we want to compute and then use these estimated to compute better probabilities and so on... Thus, training HMMs is done using what is known as the **forward-backward, or
 Baum Welch algorithm** which is a special case of the EM algorithm.
 
-Concerning the learning of the transition probability, can you guess what would be a good estimate for the probability of going from state $$q_j$$ to state $$q_i$$? Well, we can use counting:
+Concerning the learning of the transition probability, can you guess what would be a good estimate for the probability of going from state $$q_i$$ to state $$q_j$$? Well, we can use counting:
 
-$$ p(q_i \vert q_j) = \dfrac{N(i, j)}{\sum_{j'} N(i, j')} \hspace{4cm} (Eq. 1) $$
+$$ p(q_j \vert q_i) = \dfrac{N(i, j)}{\sum_{j'} N(i, j')} \hspace{4cm} (Eq. 1) $$
 
 where $$N(i, j)$$ is the number of transitions from state $$q_i$$ to state $$q_j$$.
 
-Now, if we have a Markov chain, then it would be easy to compute this estimation directly since we know the path that we need to follow because the states are seen. However, in the HMM case, we can't do this easily. Therefore, we need to use the Baum Welch algorithm. The algorithm works by estimating the counts iteratively by starting with an initial estimate of the probabilities and then use this estimate to compute better and better probabilities.
+Now, if we have a Markov chain, then it would be easy to compute this estimation directly since we know the path that we need to follow because the states are seen. However, in the HMM case, we can't do this easily. Therefore, we need to use the Baum Welch algorithm. The algorithm works by estimating the counts iteratively by starting with an initial estimate of the probabilities and then uses this estimate to compute better and better probabilities.
 
 We already seen how we can do a forward pass and use dynamic programming to store the results so one part of the algorithm should be clear. Then, we still need to define the *backward* pass and how it is done. First, let
 
