@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Hidden Markov Model
-#excerpt: Hidden Markov Model
+excerpt: First, we need to define what is a Markov model and why we have this additional word Hidden. Then I am going to explain the structure of HMM and how to compute the likelihood probability using the Forward algorithm. Moreover, I am going to explain the decoding Viterbi algorithm which is used to compute the most likely sequence. After that, I am going to dig into the mathematical details behind training HMMs using the Forward-Backward algorithm.
 ---
 
 {% include mathjax.html %}
