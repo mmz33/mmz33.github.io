@@ -210,7 +210,7 @@ Then, the calculation is:
 
 - **Inductive step**: $$ viterbi[t][q] = \max_{q'} viterbi[t-1][q'] \cdot p(q \vert q') \cdot p(o_t \vert q) $$
 
-- **Termination**: $$ viterbi[T][q_F] = \max{q} viterbi[T][q] \cdot p(q_F \vert q) $$
+- **Termination**: $$ viterbi[T][q_F] = \max_{q} viterbi[T][q] \cdot p(q_F \vert q) $$
 
 Thus, the pseudocode looks as follows:
 
