@@ -38,6 +38,6 @@ I am currently working as a student research assistant at the Human Language Tec
 
 - HopIn
 
-  I developed an Android carpooling application on a team for a Software Engineering course.
+  An Android carpooling application developed on a team for a Software Engineering course.
 
 - USAID Full Scholarship at American University of Beirut, 2013
