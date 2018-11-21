@@ -305,8 +305,3 @@ $$ \hat{p}(o_t \vert q_i) = \dfrac{\sum_{t=1 : a_t = i}^{T} \beta(i \vert t)}{\s
 Finally, here is the pseudocode of the forward-backward algorithm:
 
 {% include image.html url="/images/Hidden-Markov-Model/forward_backward.png" description="" width="100%" %}
-
-## Reference:
----
-
-1. Speech and Language Processing: An Introduction to Natural Language Processing, Computational Linguistics, and Speech Recognition.
