@@ -245,9 +245,11 @@ which stores the probability of seeing the observations from time $$t+1$$ till t
 
 - **Initialization**: $$ backward[T][q] = p(q_F \vert q) $$
 
-- **Inductive step**: $$ backward[t][q] = \sum_{q'} backward[t+1][q] \cdot p(q' \vert q) \cdot p(o_t \vert q') $$
+- **Inductive step**: $$ backward[t][q] = \sum_{q'} backward[t+1][q'] \cdot p(q' \vert q) \cdot p(o_t \vert q') $$
 
 - **Termination**: $$ backward[1][q_0] = \sum_{q} backward[1][q] \cdot p(q \vert q_0) $$
+
+{% include image.html url="/images/Hidden-Markov-Model/backward.png" description="" width="100%" %}
 
 We are now ready to dig deep into the forward-backward algorithm.
 
