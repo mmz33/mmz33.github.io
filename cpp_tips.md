@@ -213,7 +213,7 @@ A a3(0, 10.0); // calls second constructor as before
 // same problem as a2
 A a4{0, 10.0};
 ```
-Oops... so now if we are using braces initialzation instead of calling the constructor with the correct args
+Oops... so now if we are using braces initialization instead of calling the constructor with the correct args
 it is calling the constructor that is using `std::initializer_list`. This can really leads to ambiguity and
 for sure wrong output.
 
