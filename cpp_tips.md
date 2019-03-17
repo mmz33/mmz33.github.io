@@ -227,5 +227,75 @@ std::vector<int> v1(10, 5); // creates 10-elements vector with 5 as value
 std::vector<int> v2{10, 5}; // create 2-elements vector with values 10 and 5
 ```
 You can see the problem above right? It is really confusing for the person that is using our code when we have such
-design in our code. This person must carefully choose between braces and paranthesis initialzation and so it is better
+design. This person must carefully choose between braces and paranthesis initialzation and so it is better
 to design your constructors in a way that avoids as much problems as possible.
+
+## Tip 4: Using Smart Pointers
+
+Raw pointers are hard to love for many reasons such as we have to make sure that we destroyed a pointer only once with no resource leaks. Smart pointers come to avoid raw pointers issues. They are just wrappers around raw pointers that can do the same thing but with less error probability. The main smart pointers in C++11 are: `std::unique_ptr`, `std::shared_ptr`, and `std::weak_ptr`. Next I am going to give some tips how and when to use them effectively.
+
+### 1. Use `std::unique_ptr` for exclusive-ownership resource management
+
+`std::unique_ptr` is a fast and move-only pointer with exclusive ownership semantics. This means it owns what it is pointing to and thats why it is only movable. Moving a `std::unique_ptr` transfers ownership from the source pointer (set to nullptr) to the destination pointer. It can't be copied obviously because then two pointers would own the same object and that's against its semantics. As we said that such pointers are just wrappers of raw pointers and so upon destruction, `std::unique_ptr` will call the `destructor` by applying `delete` to the raw pointer. This happens when the `unique_ptr` goes out of scope. Lets consider the following class hierarchy:
+```cpp
+class Shape { ... };
+
+class Circle : public shape { ... };
+class Square : public shape { ... };
+```
+A common use for `std::unique_ptr` is as a factory function that allocates an object on the heap and returns a pointer to it, with the caller being responsible for deleting the object. This is a perfect match with the definition of `std::unique_ptr` because the caller will have an exclusive ownership about the object being allocated and it will automatically delete it when it is destroyed. A factory function for the above class hierarchy will look like the following:
+```cpp
+// return std::unique_ptr to an object created
+// from the given args
+template<typename... Ts>
+std::unique_ptr<Shape> create_shape(Ts&&... params);
+```
+Caller then would use this function as:
+```cpp
+// caller scope
+{
+  ...
+  auto shape_ptr = create_shape(params);
+  ...
+}
+// destroy *shape_ptr (out of scope)
+```
+By default, the destruction is done via the `delete` keyword, however, you can create your own custom deleter if you want. This can be represented as a function such as function object or even lambda expressions. Suppose for example we want to do some logging before the destruction and so we need to create first a custom deleter.
+```cpp
+// custom deleter function
+auto del_shape = [](Shape* shape) {
+                  print_log(shape); // assume it is implemented
+                  delete shape;
+                 };
+
+// factory function
+template<typename... Ts>
+std::unique_ptr<Shape, decltype(del_shape)>
+create_shape(Ts&&... params) {
+  std::unique_ptr<Shape, decltype(del_shape)>
+    shape_ptr(nullptr, del_shape);
+
+  if (...) {
+    shape_ptr.reset(new Circle(std::forward<Ts>(params)...))
+  } else if (...) {
+    shape_ptr.reset(new Square(std::forward<Ts>(params)...))
+  }
+  return shape_ptr;
+}
+```
+Lets try to understand now what is happening in the above code:
+* del_shape is the custom deleter function that accepts a raw pointer to the object to be destroyed where in our case we do some logging first and then we delete the object.
+* When using a custom deleter, it's type must be specified as in argument for `std::unique_ptr`. Thats why we added `decltype(del_shape)`
+* In order to associate the custom deleter with shape_ptr, we need to add it to the constructor also.
+* It is not possible to implicitly convert from raw pointer to `unique_ptr` and thats why we used the `reset` keyword when we wanted to create the required object. It give `shape_ptr` ownership on the object created via `new`.
+* If you notice that the custom deleter `del_shape` takes as argument a raw pointer of type Shape and so regardless of the actual type created inside `create_shape` function (i.e circle or square) it will be deleted as a Shape object. This means that we will be deleting a derived class object via a base class pointer and so we need to have a virtual destructor for the base class:
+```cpp
+class Shape {
+public:
+    ...
+    virtual ~Shape();
+    ...
+};
+```
+At the end, I just want to note about two things. First if you remember, I mentioned that we can also create the custom deleter via a function object instead of lambda expression but this will increase the size of the `std::unique_ptr` since we need to consider a function pointer now as an argument as: `std::unique_ptr<Shape, void (*)(Shape)>`.
+Second, it is easy to convert from `std::unique_ptr` to `std::shared_ptr` (which will be explained next) by just doing the following: `std::shared_ptr<Shape> sp = create_shape(parmas)`
