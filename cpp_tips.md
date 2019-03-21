@@ -276,9 +276,9 @@ create_shape(Ts&&... params) {
     shape_ptr(nullptr, del_shape);
 
   if (...) {
-    shape_ptr.reset(new Circle(std::forward<Ts>(params)...))
+    shape_ptr.reset(new Circle(std::forward<Ts>(params)...));
   } else if (...) {
-    shape_ptr.reset(new Square(std::forward<Ts>(params)...))
+    shape_ptr.reset(new Square(std::forward<Ts>(params)...));
   }
   return shape_ptr;
 }
