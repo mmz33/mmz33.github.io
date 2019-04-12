@@ -100,7 +100,7 @@ The questions that you might ask now are:
 - How to compute the transition probabilities?
 - ...
 
-Hopefully, all your questions well be answered in the coming sections.
+Hopefully, all your questions will be answered in the coming sections.
 
 ## Fundamental problems:
 ---
@@ -301,6 +301,10 @@ $$
 $$
 
 Therefore,
+
+$$ \beta(i \vert t) = \dfrac{forward[t][q_i] \cdot backward[t][q_i]}{\sum_{i'} forward[t][q_{i'}] \cdot backward[t][q_{i'}]} $$
+
+and,
 
 $$ \hat{p}(o_t \vert q_i) = \dfrac{\sum_{t=1 : a_t = i}^{T} \beta(i \vert t)}{\sum_{t=1}^{T} \beta(i \vert t)} $$
 
