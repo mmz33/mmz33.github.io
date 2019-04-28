@@ -16,3 +16,6 @@ layout: page
 <br><br>
 * [Neural Language Model](https://github.com/mmz33/Neural-Language-Model)
   * Implementation of RNN Language Model using Tensorflow
+<br><br>
+* [Neural Network From Scratch](https://github.com/mmz33/NN-From-Scratch)
+  * Neural Network Implementation without using any Deep Learning libraries
