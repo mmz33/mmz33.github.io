@@ -2,17 +2,19 @@
 layout: page
 ---
 
-I am currently working as a student research assistant at the Human Language Technology and Pattern Recognition Group at the RWTH Aachen University. My main research interests are Automatic Speech Recognition, Natural Language Processing, and Machine Translation. I am also interested in Computer Vision. I like to share what I learn and I am always open for discussion.
+I am a graduate student at RWTH Aachen University. I am also a student research assistant at the Human Language Technology and Pattern Recognition Group lead by Prof. Hermann Ney. My reseach interests are: Recurrent Networks, LSTMs, End-to-End models, Neural Attention models, Automatic Speech Recognition, and Natural Language Processing. I am also interested in Computer Vision.
 
 ## Education
 
-- M.Sc in Software Systems Engineering, RWTH Aachen University (2017 - Present)
+- M.Sc in Software Systems Engineering, RWTH Aachen University (2017 - 2019)
 
 - B.Sc in Computer Science, Amercian University of Beirut (2014 - 2017)
 
 ## Skills
 
 - Languages: C++11, Python, Java
+
+- DL Libraries: TensorFlow
 
 - Markup: LaTeX
 
