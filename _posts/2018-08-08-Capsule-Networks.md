@@ -173,6 +173,8 @@ So the questions that might be asked now can we really rely on these capsules? H
 by the type of task they are used for? Maybe using capsules instead of CNN can lead to
 better performance in different tasks such as feature extraction in ASR, images generations with GANs, etc. However, CapsNet is computationally expensive because of the dynamic routing algorithm and there are no experiments yet on the ImageNet dataset. There is always a probability of failure so let's try to do experiments and see.
 
+[Here](https://github.com/mmz33/CapsNet) you can find a code and detailed report about CapsNets.
+
 ## References
 ---
 1. [Dynamic Routing between Capules](https://arxiv.org/abs/1710.09829)
