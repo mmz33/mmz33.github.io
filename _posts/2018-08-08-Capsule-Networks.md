@@ -12,6 +12,8 @@ Geoffery Hinton and his colleagues published a paper entitled by [Dynamic Routin
 In the deep learning community, this is an open for a big wave of research since it is a new neural architecture
 and might have a great impact. But wait? Why we need capsule networks if we have CNNs? In this blog post, I am going first to discuss the main problems of CNNs, then I will move into the capsule theory by discussing how capsules work and the main algorithm, the Dynamic Routing algorithm, behind this theory. Then, I will go over the CapsNet architecture by explaining its layers and finally we look up at some experiments and results.
 
+I wrote a detailed [report]({{ site.base_url }}/pdfs/capsnet_seminar_report.pdf) and [code](https://github.com/mmz33/CapsNet) about this topic so you can take a look for more details.
+
 ## Convolutional Neural Network (CNN)
 -----
 As we all know, Convolutional Neural Networks (CNNs) are the state-of-the-art models for different tasks in
