@@ -2,7 +2,7 @@
 layout: page
 ---
 
-* [CapsNet](https://github.com/mmz33/CapsNet) (In progress)
+* [CapsNet](https://github.com/mmz33/CapsNet)
   * Implementation of Capsule Networks using Tensorflow
 <br><br>
 * [Batch Normalization](https://github.com/mmz33/NN-Utils/blob/master/batch_norm.py)
