@@ -12,6 +12,7 @@ My personal research interests are:
 - Recurrent networks, LSTMs
 - Neural Attention models
 - Automatic Speech Recognition
+- End-to-end models for ASR
 - Language Modeling
 
 For more details, you can find my resume [here]({{ site.baseurl }}/pdfs/resume.pdf).
