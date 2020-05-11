@@ -18,4 +18,4 @@ My personal research interests are:
 For more details, you can find my resume [here]({{ site.baseurl }}/pdfs/resume.pdf).
 
 ## Publications
-- M. Zeineldeen, A. Zeyer, R. Schlüter and H. Ney, "[Layer-Normalized LSTM for Hybrid-Hmm and End-To-End ASR](https://www-i6.informatik.rwth-aachen.de/publications/download/1127/Zeineldeen-ICASSP-2020.pdf)," ICASSP 2020 - 2020 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), Barcelona, Spain, 2020, pp. 7679-7683
+- M. Zeineldeen, A. Zeyer, R. Schlüter and H. Ney, "[Layer-Normalized LSTM for Hybrid-Hmm and End-To-End ASR](https://www-i6.informatik.rwth-aachen.de/publications/download/1127/Zeineldeen-ICASSP-2020.pdf)," ICASSP 2020 - 2020 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), Barcelona, Spain, 2020, pp. 7679-7683 [[slides]]({{ site.baseurl }}/pdfs/icassp-2020-presentation.pdf)
