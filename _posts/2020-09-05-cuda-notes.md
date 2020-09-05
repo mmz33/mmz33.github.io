@@ -10,6 +10,7 @@ I find it very important to learn more how to utilize such a hardware to do adva
 and more optimizations. Especially when it comes to deep learning! Thus, this blog
 contains my notes about CUDA programming which I collected during my learning process.
 For reference, you can check this [book](https://developer.nvidia.com/cuda-example).
+You can also find practice code with comments [here](https://github.com/mmz33/practice-cuda).
 
 {% include mathjax.html %}
 
