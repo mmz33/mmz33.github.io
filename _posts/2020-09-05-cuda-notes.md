@@ -79,6 +79,6 @@ broadcast it to all other threads.
 - Reading from constant memory could be slower than global memory in case many
 threads request reads for different addresses
 - Constant memory can be useful for an important application called "Ray Tracing."
-Briefly, the idea is output 3D objects in a 2D image taking into consideration
+Briefly, the idea is to output 3D objects in a 2D image taking into consideration
 light, shades, objects material, etc. Constant memory can be used to cache
 the objects in the environment which make if fast for threads to access them
