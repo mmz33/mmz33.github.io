@@ -36,7 +36,7 @@ which is not specified has 1 as default value
 
 ### Memory Managemnet
 
-- `cudaMalloc((void**)&pointer, size)`: allocate memory on device
+- `cudaMalloc((void**)&pointer, size)`: allocates memory on device
 - `cudaMemcpy(dest_ptr, src_ptr, size, direction)`: synchronous copy between host and device
 - `cudaMemcpyHostToDevice`: used as copy direction from host to device (e.g in `cudaMemcpy`)
 - `cudaMemcpyDeviceToHost`: used as copy direction from device to host (e.g in `cudaMemcpy`)
@@ -46,6 +46,14 @@ constant memory
 ### Thread Management
 
 - `__syncthreads()`: wait until all threads reach this sync
+
+### Event Management
+
+- `cudaEventCreate(cudaEvent_t *event)`: creates CUDA event object
+- `cudaEventRecord(cudaEvent_t *event, cudaStream_t stream)`: records an event
+on given CUDA stream (stream used for concurrency management)
+- `cudaEventSynchronize(cudaEvent_t *event)`: synchronizes between GPU and CPU on
+the given event
 
 ### Blocks and threads
 
