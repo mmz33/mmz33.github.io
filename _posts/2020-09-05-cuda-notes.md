@@ -71,3 +71,14 @@ this would allows us to do efficient reduction functions
 - Kinds of memories: global, shared, *constant*, etc
 - Constant memory can be used to store data that won't change during the
 kernel execution. This will improve memory bandwidth
+- No need to allocated or free constant memory explicitly
+- It reduces memory bandwidth by caching consecutive reads of the same address.
+Thus, this will save read access for nearby threads or threads in the same warp.
+E.g if many threads read from same address, one thread can read the data and
+broadcast it to all other threads.
+- Reading from constant memory could be slower than global memory in case many
+threads request reads for different addresses
+- Constant memory can be useful for an important application called "Ray Tracing."
+Briefly, the idea is output 3D objects in a 2D image taking into consideration
+light, shades, objects material, etc. Constant memory can be used to cache
+the objects in the environment which make if fast for threads to access them
