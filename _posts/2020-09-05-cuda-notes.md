@@ -90,3 +90,16 @@ threads request reads for different addresses
 Briefly, the idea is to output 3D objects in a 2D image taking into consideration
 light, shades, objects material, etc. Constant memory can be used to cache
 the objects in the environment which make if fast for threads to access them
+
+### Atomics
+
+- The execution of *atomic* operations can not be divided into smaller
+parts by other threads
+- Some function names: atomicAdd, atomicMin, atomicSub, etc
+(see more [here](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html))
+- They are used to avoid race condition between multiple threads.
+A simple case is incrementing a shared variable. This is also known as
+*read-modify-write* operation. Each thread would need to read the variable,
+modify it, and then write the new result back. If the threads are not
+scheduled in a correct way, the last result might be wrong. Thus,
+here atomic operations would be used to avoid such an issue.
