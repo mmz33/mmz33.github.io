@@ -5,10 +5,12 @@ excerpt: GPU can be much faster than CPU for some computations such as matrix mu
 ---
 
 GPU can be much faster than CPU for some computations
-such as matrix multiplications. They are intended to be fast for such computations.
-I find it very important to learn more how to utilize such a hardware to do advanced stuff
-and more optimizations. Especially when it comes to deep learning! Thus, this blog
-contains my notes about CUDA programming which I collected during my learning process.
+such as matrix multiplications.
+They are intended to be fast for such computations.
+I find it very important to learn more how to utilize such a hardware to
+do advanced stuff and more optimizations.
+Especially when it comes to deep learning! Thus, this blog
+contains my notes about CUDA programming which I collected while learning.
 For reference, you can check this [book](https://developer.nvidia.com/cuda-example).
 You can also find practice code with comments [here](https://github.com/mmz33/practice-cuda).
 
@@ -16,44 +18,47 @@ You can also find practice code with comments [here](https://github.com/mmz33/pr
 
 ### Functions
 
-- `__global__`: called from host/device and run only on device
-- `__device__`: called from device and run only on device
-- `__host__`  : called from host and run only on host
+- `__global__`: called from host/device and run only on device.
+- `__device__`: called from device and run only on device.
+- `__host__`  : called from host and run only on host.
 
 ### Variables
 
 - `__device__`: declares device variable in global memory for all threads and lifetime
-of application
+of application.
 - `__shared__`: declares device variable in shared memory between threads within a block
-with lifetime of block
+with lifetime of block.
 - `__constant__`: declares device variable in constant memory for all threads and lifetime
-of application
+of application.
 
 ### Types
 
 - dim3: basically 3D vector of type `uint3` (3D unsigned integer vector). Dimension
-which is not specified has 1 as default value
+which is not specified has 1 as default value.
 
 ### Memory Managemnet
 
-- `cudaMalloc((void**)&pointer, size)`: allocates memory on device
-- `cudaMemcpy(dest_ptr, src_ptr, size, direction)`: synchronous copy between host and device
-- `cudaMemcpyHostToDevice`: used as copy direction from host to device (e.g in `cudaMemcpy`)
-- `cudaMemcpyDeviceToHost`: used as copy direction from device to host (e.g in `cudaMemcpy`)
+- `cudaMalloc((void**)&pointer, size)`: allocates memory on device.
+- `cudaFree`: frees allocated memory on device.
+- `cudaMemcpy(dest_ptr, src_ptr, size, direction)`: synchronous copy between host and device.
+- `cudaMemcpyHostToDevice`: used as copy direction from host to device (e.g in `cudaMemcpy`).
+- `cudaMemcpyDeviceToHost`: used as copy direction from device to host (e.g in `cudaMemcpy`).
 - `cudaMemcpyToSymbol(dest_ptr, src_ptr, size, direction)`: copy to a global or
-constant memory
+constant memory.
+- `cudaHostAlloc`: allocates page-locked host memory.
+- `cudaFreeHost`: frees page-locked host memory.
 
 ### Thread Management
 
-- `__syncthreads()`: wait until all threads reach this sync
+- `__syncthreads()`: wait until all threads reach this sync.
 
 ### Event Management
 
-- `cudaEventCreate(cudaEvent_t *event)`: creates CUDA event object
+- `cudaEventCreate(cudaEvent_t *event)`: creates CUDA event object.
 - `cudaEventRecord(cudaEvent_t *event, cudaStream_t stream)`: records an event
-on given CUDA stream (stream used for concurrency management)
+on given CUDA stream (stream used for concurrency management).
 - `cudaEventSynchronize(cudaEvent_t *event)`: synchronizes between GPU and CPU on
-the given event
+the given event.
 
 ### Blocks and threads
 
@@ -67,7 +72,7 @@ So each block would take a copy of the code and run it in parallel.
 One of them is due to hardware limitations. There is a limited number of blocks
 that can be created. In addition, one of the important benefits from that
 is to do thread collaboration with shared memory and synchronization. For example,
-this would allows us to do efficient reduction functions
+this would allows us to do efficient reduction functions.
 - Related keywords:
   - `threadIdx.x`: thread index
   - `blockDim.x`: number of threads
@@ -94,12 +99,27 @@ the objects in the environment which make if fast for threads to access them
 ### Atomics
 
 - The execution of *atomic* operations can not be divided into smaller
-parts by other threads
+parts by other threads.
 - Some function names: atomicAdd, atomicMin, atomicSub, etc
-(see more [here](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html))
+(see more [here](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html)).
 - They are used to avoid race condition between multiple threads.
 A simple case is incrementing a shared variable. This is also known as
 *read-modify-write* operation. Each thread would need to read the variable,
 modify it, and then write the new result back. If the threads are not
 scheduled in a correct way, the last result might be wrong. Thus,
 here atomic operations would be used to avoid such an issue.
+
+
+### Page-locked host memory
+
+- Typically, we use the C library `malloc` function to allocate host
+memory. This will allocate pageable memory, i.e it is possible to be paged
+out to the disk (or swapped to the disk).
+- However, in some cases, it is preferable to allocate host memory
+that is guaranteed by the OS that it will not be paged out to the disk.
+In this way, we can always access the physical address of the memory.
+- This will speed up the copy between host and device.
+- Note that allocating too much page-locked memories can lead to
+memory overflow issues not only for the current running application
+but also for other applications.
+- Allocating such kind of memory can be done via `cudaHostAlloc`.
