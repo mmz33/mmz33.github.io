@@ -25,7 +25,8 @@ For more details, you can find my resume [here]({{ site.baseurl }}/pdfs/resume.p
 ICASSP 2020 - 2020 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP),
 Barcelona, Spain, 2020, pp. 7679-7683 [[slides]]({{ site.baseurl }}/pdfs/icassp-2020-presentation.pdf)
 
+## arXiv
 - M. Zeineldeen, A. Zeyer, W. Zhou, T. Ng, R. Schlüter, and H. Ney.
-[A Systematic Comparison of Grapheme-based vs. Phoneme-based Label Units for Encoder-Decoder-Attention Models](https://www-i6.informatik.rwth-aachen.de/publications/download/1153/Zeineldeen-ICASSP-2021.pdf).
-In IEEE International Conference on Acoustics, Speech, and Signal Processing (ICASSP),
-May 2021. Submitted To.
+[A Systematic Comparison of Grapheme-based vs. Phoneme-based Label Units for Encoder-Decoder-Attention Models](https://arxiv.org/abs/2005.09336), https://arxiv.org/abs/2005.09336.
+
+
