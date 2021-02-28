@@ -2,8 +2,6 @@
 layout: page
 ---
 
-![All text](/images/profile_pic.jpg){: .callout}
-
 Hi! I am a PhD student in computer science (CS) at RWTH Aachen University affiliated
 with the [Human Language Technology and Pattern Recognition Group](https://www-i6.informatik.rwth-aachen.de/).
 I am advised by Prof. Hermann Ney.
