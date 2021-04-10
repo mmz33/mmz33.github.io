@@ -9,7 +9,8 @@ name: Mohammad Zeineldeen
 description: PhD student at RWTH Aachen University
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
-avatar: https://avatars3.githubusercontent.com/u/17355283?s=400&u=a4d919920ef70977f83a3d06344c0e20b893db89&v=4
+# avatar: https://avatars3.githubusercontent.com/u/17355283?s=400&u=a4d919920ef70977f83a3d06344c0e20b893db89&v=4
+avatar: "/images/favicon.ico"
 
 #
 # Flags below are optional
