@@ -2,6 +2,8 @@
 layout: page
 ---
 
+![profile-image](/images/profile_image2.jpg){: .profile-image}
+
 Hi! I am a PhD student in computer science (CS) at RWTH Aachen University affiliated
 with the [Human Language Technology and Pattern Recognition Group](https://www-i6.informatik.rwth-aachen.de/).
 I am advised by Prof. Hermann Ney.
@@ -13,9 +15,10 @@ RWTH Aachen university with specializing in Automatic Speech Recognition (ASR).
 My personal research interests are:
 - Recurrent networks, LSTMs
 - Neural Attention models
-- Automatic Speech Recognition
+- Automatic Speech Recognition (ASR)
+- Acoustic Modeling
 - End-to-end models for ASR
-- Language Modeling
+- Streaming ASR
 
 For more details, you can find my resume [here]({{ site.baseurl }}/pdfs/resume.pdf).
 
