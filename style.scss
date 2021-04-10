@@ -283,7 +283,7 @@ footer {
   text-align: center;
 }
 
-.profile-image {
+img[src*="profile_image"] {
   float: right;
   border-radius: 15px;
   width: 30%;
