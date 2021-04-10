@@ -283,6 +283,15 @@ footer {
   text-align: center;
 }
 
+.profile-image {
+  float: right;
+  border-radius: 15px;
+  width: 30%;
+  border: 2px solid #ddd;
+  margin-left: 10px;
+  margin-top: -20px;
+}
+
 // Settled on moving the import of syntax highlighting to the bottom of the CSS
 // ... Otherwise it really bloats up the top of the CSS file and makes it difficult to find the start
 @import "highlights";
