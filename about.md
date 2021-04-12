@@ -2,7 +2,7 @@
 layout: page
 ---
 
-![profile-image](/images/profile_image2.jpg)
+![profile-image](/images/profile/profile_image3.jpg)
 
 Hi! I am a PhD student in computer science (CS) at RWTH Aachen University affiliated
 with the [Human Language Technology and Pattern Recognition Group](https://www-i6.informatik.rwth-aachen.de/).
@@ -31,5 +31,3 @@ Barcelona, Spain, 2020, pp. 7679-7683 [[slides]]({{ site.baseurl }}/pdfs/icassp-
 ## arXiv
 - M. Zeineldeen, A. Zeyer, W. Zhou, T. Ng, R. Schlüter, and H. Ney.
 [A Systematic Comparison of Grapheme-based vs. Phoneme-based Label Units for Encoder-Decoder-Attention Models](https://arxiv.org/abs/2005.09336), https://arxiv.org/abs/2005.09336.
-
-
