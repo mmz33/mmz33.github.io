@@ -17,10 +17,10 @@ layout: page
 
 **2020**
 
+- M. Zeineldeen, A. Zeyer, W. Zhou, T. Ng, R. Schlüter, and H. Ney.
+[A Systematic Comparison of Grapheme-based vs. Phoneme-based Label Units for Encoder-Decoder-Attention Models](https://arxiv.org/abs/2005.09336). arXiv:2005.09336.
+
 - M. Zeineldeen, A. Zeyer, R. Schlüter and H. Ney.
 [Layer-Normalized LSTM for Hybrid-Hmm and End-To-End ASR](https://www-i6.informatik.rwth-aachen.de/publications/download/1127/Zeineldeen-ICASSP-2020.pdf),
 ICASSP 2020 - 2020 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP),
 Barcelona, Spain, 2020, pp. 7679-7683 [[slides]]({{ site.baseurl }}/pdfs/icassp-2020-presentation.pdf)
-
-- M. Zeineldeen, A. Zeyer, W. Zhou, T. Ng, R. Schlüter, and H. Ney.
-[A Systematic Comparison of Grapheme-based vs. Phoneme-based Label Units for Encoder-Decoder-Attention Models](https://arxiv.org/abs/2005.09336). arXiv:2005.09336.
