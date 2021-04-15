@@ -23,4 +23,4 @@ ICASSP 2020 - 2020 IEEE International Conference on Acoustics, Speech and Signal
 Barcelona, Spain, 2020, pp. 7679-7683 [[slides]]({{ site.baseurl }}/pdfs/icassp-2020-presentation.pdf)
 
 - M. Zeineldeen, A. Zeyer, W. Zhou, T. Ng, R. Schlüter, and H. Ney.
-[A Systematic Comparison of Grapheme-based vs. Phoneme-based Label Units for Encoder-Decoder-Attention Models](https://arxiv.org/abs/2005.09336), https://arxiv.org/abs/2005.09336.
+[A Systematic Comparison of Grapheme-based vs. Phoneme-based Label Units for Encoder-Decoder-Attention Models](https://arxiv.org/abs/2005.09336). arXiv:2005.09336.
