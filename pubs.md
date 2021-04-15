@@ -7,12 +7,12 @@ layout: page
 - M. Zeineldeen, A. Glushko, W. Michel, A. Zeyer, R. Schlüter, and H. Ney.
   [Investigating Methods to Improve Language Model Integration for
   Attention-based Encoder-Decoder ASR
-  Models.](https://arxiv.org/abs/2104.05544). April, 2021. Submitted to
+  Models](https://arxiv.org/abs/2104.05544). April, 2021. Submitted to
   Interspeech 2021.
 
 - N. Rossenbach, M. Zeineldeen, B. Hilmes, R. Schlüter, and H. Ney.
   [Comparing the Benefit of Synthetic Training Data for Various Automatic Speech
-  Recognition Architectures.](https://arxiv.org/abs/2104.05379). April, 2021.
+  Recognition Architectures](https://arxiv.org/abs/2104.05379). April, 2021.
   Submitted to Interspeech 2021.
 
 **2020**
