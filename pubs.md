@@ -2,6 +2,9 @@
 layout: page
 ---
 
+You can also check my [Google Scholar
+profile](https://scholar.google.com/citations?user=iFRueeoAAAAJ&hl=en&oi=ao)
+
 **2021**
 
 - M. Zeineldeen, A. Glushko, W. Michel, A. Zeyer, R. Schlüter, and H. Ney.
