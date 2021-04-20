@@ -13,6 +13,11 @@ profile](https://scholar.google.com/citations?user=iFRueeoAAAAJ&hl=en&oi=ao)
   Models](https://arxiv.org/abs/2104.05544). April, 2021. Submitted to
   Interspeech 2021.
 
+- W. Zhou, M. Zeineldeen, Z. Zheng, R. Schlüter, H. Ney. [Acoustic Data-Driven
+  Subword Modeling for End-to-End Speech
+  Recognition](https://www-i6.informatik.rwth-aachen.de/publications/download/1185/ZhouWeiZeineldeenMohammadZhengZuoyunSchl%FCterRalfNeyHermann--AcousticData-DrivenSubwordModelingforEnd-to-EndSpeechRecognition--2021.pdf).
+  April, 2021. Submitted to Interspeech 2021.
+
 - N. Rossenbach, M. Zeineldeen, B. Hilmes, R. Schlüter, and H. Ney.
   [Comparing the Benefit of Synthetic Training Data for Various Automatic Speech
   Recognition Architectures](https://arxiv.org/abs/2104.05379). April, 2021.
