@@ -9,21 +9,21 @@ profile](https://scholar.google.com/citations?user=iFRueeoAAAAJ&hl=en&oi=ao)
 
 - [Investigating Methods to Improve Language Model Integration for
   Attention-based Encoder-Decoder ASR
-  Models](https://arxiv.org/abs/2104.05544) <br/> 
+  Models](https://arxiv.org/abs/2104.05544) <br/>
   **Mohammad Zeineldeen**, Alexandr Glushko, Wilfried Michel, Albert Zeyer, Ralf
   Schlüter, Hermann Ney <br/>
-  _Submitted to Interspeech 2021_
+  _Accepted to INTERSPEECH 2021_
 
 - [Acoustic Data-Driven
   Subword Modeling for End-to-End Speech
   Recognition](https://arxiv.org/abs/2104.09106) <br/>
-  Wei Zhou, **Mohammad Zeineldeen**, Zuoyun Zheng, Ralf Schlüter, Hermann Ney <br/> 
-  _Submitted to Interspeech 2021_
+  Wei Zhou, **Mohammad Zeineldeen**, Zuoyun Zheng, Ralf Schlüter, Hermann Ney <br/>
+  _Accepted to INTERSPEECH 2021_
 
 - [Comparing the Benefit of Synthetic Training Data for Various Automatic Speech
   Recognition Architectures](https://arxiv.org/abs/2104.05379) <br/>
   Nick Rossenbach, **Mohammad Zeineldeen**, Benedikt Hilmes, Ralf Schlüter, Hermann Ney <br/>
-  _Submitted to Interspeech 2021_
+  _arXiv_
 
 **2020**
 
@@ -33,4 +33,4 @@ profile](https://scholar.google.com/citations?user=iFRueeoAAAAJ&hl=en&oi=ao)
 
 - [Layer-Normalized LSTM for Hybrid-Hmm and End-To-End ASR](https://www-i6.informatik.rwth-aachen.de/publications/download/1127/Zeineldeen-ICASSP-2020.pdf) <br/>
   **Mohammad Zeineldeen**, Albert Zeyer, Ralf Schlüter, Hermann Ney <br/>
-  _Accepted at IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP) 2020_ [[slides]]({{ site.baseurl }}/pdfs/icassp-2020-presentation.pdf)
+  _Accepted to IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP) 2020_ [[slides]]({{ site.baseurl }}/pdfs/icassp-2020-presentation.pdf)
