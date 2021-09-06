@@ -12,13 +12,13 @@ profile](https://scholar.google.com/citations?user=iFRueeoAAAAJ&hl=en&oi=ao)
   Models](https://arxiv.org/abs/2104.05544) <br/>
   **Mohammad Zeineldeen**, Alexandr Glushko, Wilfried Michel, Albert Zeyer, Ralf
   Schlüter, Hermann Ney <br/>
-  _INTERSPEECH 2021_ [[slides]]({{ site.baseurl }}/pdfs/isp-2021-presentation.pdf) [[video]]({{ site.baseurl }}/videos/isp-2021-presentation.mp4)
+  _INTERSPEECH 2021_ [[slides]]({{ site.baseurl }}/pdfs/isp-2021-ilm.pdf) [[video]]({{ site.baseurl }}/videos/isp-2021-presentation.mp4)
 
 - [Acoustic Data-Driven
   Subword Modeling for End-to-End Speech
   Recognition](https://arxiv.org/abs/2104.09106) <br/>
   Wei Zhou, **Mohammad Zeineldeen**, Zuoyun Zheng, Ralf Schlüter, Hermann Ney <br/>
-  _INTERSPEECH 2021_
+  _INTERSPEECH 2021_ [[slides]]({{ site.baseurl }}/pdfs/isp-2021-adsm.pdf)
 
 - [Comparing the Benefit of Synthetic Training Data for Various Automatic Speech
   Recognition Architectures](https://arxiv.org/abs/2104.05379) <br/>
