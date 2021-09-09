@@ -2,7 +2,7 @@
 layout: page
 ---
 
-![profile-image](/images/profile/profile_image3.jpg)
+![profile-image](/images/profile/profile_image4.jpeg)
 
 Hi! I am a PhD student in computer science (CS) at RWTH Aachen University affiliated
 with the [Human Language Technology and Pattern Recognition Group](https://www-i6.informatik.rwth-aachen.de/).
