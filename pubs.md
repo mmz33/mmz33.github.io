@@ -23,7 +23,7 @@ profile](https://scholar.google.com/citations?user=iFRueeoAAAAJ&hl=en&oi=ao)
 - [Comparing the Benefit of Synthetic Training Data for Various Automatic Speech
   Recognition Architectures](https://arxiv.org/abs/2104.05379) <br/>
   Nick Rossenbach, **Mohammad Zeineldeen**, Benedikt Hilmes, Ralf Schlüter, Hermann Ney <br/>
-  Submitted to  _ASRU 2021_
+  _IEEE Workshop on Automatic Speech Recognition and Understanding (ASRU) 2021_
 
 **2020**
 
