@@ -20,5 +20,4 @@ My personal research interests are:
 - End-to-end models for ASR
 - Streaming ASR
 
-[//]: <> For more details, you can find my resume [here]({{ site.baseurl }}/pdfs/resume.pdf).
-
+For more details, you can find my CV [here]({{ site.baseurl }}/pdfs/cv.pdf).
