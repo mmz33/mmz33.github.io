@@ -5,6 +5,15 @@ layout: page
 You can also check my [Google Scholar
 profile](https://scholar.google.com/citations?user=iFRueeoAAAAJ&hl=en&oi=ao)
 
+**2022**
+
+- [Automatic Learning of Subword Dependent Model
+  Scales](https://arxiv.org/abs/2110.09324) <br/>
+  Felix Meyer, Wilfried Michel, **Mohammad Zeineldeen**, Ralf Schlüter, Hermann Ney
+  <br/>
+  Submitted to _ICASSP 2022_
+
+
 **2021**
 
 - [Investigating Methods to Improve Language Model Integration for
