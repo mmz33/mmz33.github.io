@@ -7,6 +7,13 @@ profile](https://scholar.google.com/citations?user=iFRueeoAAAAJ&hl=en&oi=ao)
 
 **2022**
 
+- [Conformer-based Hybrid ASR System for Switchboard
+  Dataset](https://arxiv.org/abs/2111.03442) <br/>
+  *Mohammad Zeineldeen*, Jingjing Xu, Christoph Lüscher, Wilfried Michel, 
+  Alexander Gerstenberger, Ralf Schlüter, Hermann Ney
+  <br/>
+  Submitted to _ICASSP 2022_
+
 - [Automatic Learning of Subword Dependent Model
   Scales](https://arxiv.org/abs/2110.09324) <br/>
   Felix Meyer, Wilfried Michel, **Mohammad Zeineldeen**, Ralf Schlüter, Hermann Ney
