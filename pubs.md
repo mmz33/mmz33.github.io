@@ -9,7 +9,7 @@ profile](https://scholar.google.com/citations?user=iFRueeoAAAAJ&hl=en&oi=ao)
 
 - [Conformer-based Hybrid ASR System for Switchboard
   Dataset](https://arxiv.org/abs/2111.03442) <br/>
-  *Mohammad Zeineldeen*, Jingjing Xu, Christoph Lüscher, Wilfried Michel, 
+  **Mohammad Zeineldeen**, Jingjing Xu, Christoph Lüscher, Wilfried Michel, 
   Alexander Gerstenberger, Ralf Schlüter, Hermann Ney
   <br/>
   Submitted to _ICASSP 2022_
