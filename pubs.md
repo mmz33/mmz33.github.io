@@ -12,13 +12,13 @@ profile](https://scholar.google.com/citations?user=iFRueeoAAAAJ&hl=en&oi=ao)
   **Mohammad Zeineldeen**, Jingjing Xu, Christoph Lüscher, Wilfried Michel, 
   Alexander Gerstenberger, Ralf Schlüter, Hermann Ney
   <br/>
-  Submitted to _ICASSP 2022_
+  _ICASSP 2022_
 
 - [Automatic Learning of Subword Dependent Model
   Scales](https://arxiv.org/abs/2110.09324) <br/>
   Felix Meyer, Wilfried Michel, **Mohammad Zeineldeen**, Ralf Schlüter, Hermann Ney
   <br/>
-  Submitted to _ICASSP 2022_
+  _arXiv_
 
 **2021**
 
