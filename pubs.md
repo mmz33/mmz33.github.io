@@ -18,7 +18,7 @@ profile](https://scholar.google.com/citations?user=iFRueeoAAAAJ&hl=en&oi=ao)
   Scales](https://arxiv.org/abs/2110.09324) <br/>
   Felix Meyer, Wilfried Michel, **Mohammad Zeineldeen**, Ralf Schlüter, Hermann Ney
   <br/>
-  _arXiv_
+  _Submitted to INTERSPEECH 2022_
 
 **2021**
 
