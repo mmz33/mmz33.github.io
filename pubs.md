@@ -10,7 +10,7 @@ profile](https://scholar.google.com/citations?user=iFRueeoAAAAJ&hl=en&oi=ao)
 - [Improving the Training Recipe for a Robust Conformer-based Hybrid
   Model](https://arxiv.org/abs/2206.12955) <br/>
   **Mohammad Zeineldeen**, Jingjing Xu, Christoph Lüscher, Ralf Schlüter, Hermann Ney
-  _INTERSPEECH_2022_
+  _INTERSPEECH 2022_
 
 - [Automatic Learning of Subword Dependent Model
   Scales](https://arxiv.org/abs/2110.09324) <br/>
